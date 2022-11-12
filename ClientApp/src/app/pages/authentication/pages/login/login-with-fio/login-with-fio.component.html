@@ -1,0 +1,185 @@
+<!-- <form
+  action=""
+  class="log-in"
+  autocomplete="off"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h4>Генерация <span>РП</span></h4>
+  <div class="server-error">
+    <span class="server-error__item" *ngIf="error"
+      >Неправильное ФИО или пароль</span
+    >
+  </div>
+  <div class="floating-label">
+    <input
+      placeholder="Имя"
+      type="text"
+      name="name"
+      id="name"
+      autocomplete="off"
+      formControlName="name"
+    />
+    <label for="name">Имя:</label>
+    <div
+      *ngIf="
+        loginForm.get('name').invalid &&
+        (loginForm.get('name').dirty || loginForm.get('name').touched)
+      "
+      class="errors"
+    >
+      <div
+        *ngIf="loginForm.get('name').hasError('required')"
+        class="errors__item"
+      >
+        Имя должно быть заполнено.
+      </div>
+    </div>
+  </div>
+
+-->
+
+<form
+  class="login-form"
+  [formGroup]="loginForm"
+  action=""
+  (ngSubmit)="onSubmit()"
+>
+  <div class="login-form-title__container">
+    <span class="login-form-title">Вход</span>
+    <div class="server-error">
+      <span class="server-error__item" *ngIf="error"
+        >Неправильное ФИО или пароль</span
+      >
+    </div>
+  </div>
+
+  <div class="login-form__container">
+    <div class="login-form__item">
+      <span class="login-item__label"> Имя </span>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="name"
+          id="name"
+          formControlName="name"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('name').invalid &&
+          (loginForm.get('name').dirty || loginForm.get('name').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('name').hasError('required')"
+          class="errors__item"
+        >
+          Имя должно быть заполнено.
+        </div>
+      </div>
+    </div>
+    <div class="login-form__item">
+      <span class="login-item__label"> Фамилия </span>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="surname"
+          id="surname"
+          formControlName="surname"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('surname').invalid &&
+          (loginForm.get('surname').dirty || loginForm.get('surname').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('surname').hasError('required')"
+          class="errors__item"
+        >
+          Фамилия должна быть заполнена.
+        </div>
+      </div>
+    </div>
+    <div class="login-form__item">
+      <span class="login-item__label"> Отчество </span>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="patronymic"
+          id="patronymic"
+          formControlName="patronymic"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('patronymic').invalid &&
+          (loginForm.get('patronymic').dirty ||
+            loginForm.get('patronymic').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('patronymic').hasError('required')"
+          class="errors__item"
+        >
+          Отчество должно быть заполнено.
+        </div>
+      </div>
+    </div>
+    <div class="login-form__item">
+      <span class="login-item__label"> Пароль </span>
+      <div class="wrap-input">
+        <span class="btn-show-pass" (click)="toggleShow()">
+          <fa-icon *ngIf="isPasswordShow" [icon]="faEye"></fa-icon>
+          <fa-icon *ngIf="!isPasswordShow" [icon]="faEyeSlash"></fa-icon>
+        </span>
+        <input
+          class="input"
+          [type]="isPasswordShow ? 'text' : 'password'"
+          name="password"
+          id="password"
+          formControlName="password"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('password').invalid &&
+          (loginForm.get('password').dirty || loginForm.get('password').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('password').hasError('minlength')"
+          class="errors__item"
+        >
+          Минимальная длина 6.
+        </div>
+        <div
+          *ngIf="loginForm.get('password').hasError('required')"
+          class="errors__item"
+        >
+          Пароль должен быть заполнен.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-login-form-btn">
+    <button class="login-form-btn">Войти</button>
+    <a (click)="router.navigate(['/authentication/login/withoutFIO'])"
+      >Войти с помощью почты</a
+    >
+  </div>
+</form>

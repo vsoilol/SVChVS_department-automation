@@ -1,0 +1,110 @@
+<!-- <form
+  action=""
+  class="log-in"
+  autocomplete="off"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h4>Генерация <span>РП</span></h4>
+  <div class="server-error">
+    <span class="server-error__item" *ngIf="error"
+      >Неправильная почта или пароль</span
+    >
+  </div>
+-->
+
+<form
+  class="login-form"
+  [formGroup]="loginForm"
+  action=""
+  (ngSubmit)="onSubmit()"
+>
+  <div class="login-form-title__container">
+    <span class="login-form-title">Вход</span>
+    <div class="server-error">
+      <span class="server-error__item" *ngIf="error"
+        >Неправильная почта или пароль</span
+      >
+    </div>
+  </div>
+
+  <div class="login-form__container">
+    <div class="login-form__item">
+      <span class="login-item__label"> Почта </span>
+      <div class="wrap-input">
+        <input
+          class="input"
+          type="text"
+          name="email"
+          id="email"
+          formControlName="email"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('email').invalid &&
+          (loginForm.get('email').dirty || loginForm.get('email').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('email').hasError('required')"
+          class="errors__item"
+        >
+          Почта должна быть заполнена.
+        </div>
+        <div
+          *ngIf="loginForm.get('email').hasError('pattern')"
+          class="errors__item"
+        >
+          Почта должна соответствовать шаблону ***@***.***.
+        </div>
+      </div>
+    </div>
+    <div class="login-form__item">
+      <span class="login-item__label"> Пароль </span>
+      <div class="wrap-input">
+        <span class="btn-show-pass" (click)="toggleShow()">
+          <fa-icon *ngIf="isPasswordShow" [icon]="faEye"></fa-icon>
+          <fa-icon *ngIf="!isPasswordShow" [icon]="faEyeSlash"></fa-icon>
+        </span>
+        <input
+          class="input"
+          [type]="isPasswordShow ? 'text' : 'password'"
+          name="password"
+          id="password"
+          formControlName="password"
+        />
+        <span class="focus-input"></span>
+      </div>
+      <div
+        *ngIf="
+          loginForm.get('password').invalid &&
+          (loginForm.get('password').dirty || loginForm.get('password').touched)
+        "
+        class="errors"
+      >
+        <div
+          *ngIf="loginForm.get('password').hasError('minlength')"
+          class="errors__item"
+        >
+          Минимальная длина 6.
+        </div>
+        <div
+          *ngIf="loginForm.get('password').hasError('required')"
+          class="errors__item"
+        >
+          Пароль должен быть заполнен.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-login-form-btn">
+    <button class="login-form-btn">Войти</button>
+    <a (click)="router.navigate(['/authentication/login/withFIO'])"
+      >Войти с помощью ФИО</a
+    >
+  </div>
+</form>
