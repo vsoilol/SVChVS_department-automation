@@ -18,7 +18,7 @@ namespace DepartmentAutomation.Web
         {
             Log.Logger = ProjectLoggerConfiguration.GetLoggerConfiguration("DepartmentAutomation");
             Log.Information($"Starting host at {DateTime.Now}");
-            
+
             Log.Information(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? string.Empty);
             Log.Information(Environment.GetEnvironmentVariable("DATABASE_URL") ?? string.Empty);
 
@@ -42,7 +42,7 @@ namespace DepartmentAutomation.Web
                     var context = services.GetRequiredService<DepartmentAutomationContext>();
 
                     // logger.Log(Environment.GetEnvironmentVariable("DATABASE_URL"));
-                    
+
                     /*if (context.Database.IsSqlServer())
                     {
                         await context.Database.MigrateAsync();
