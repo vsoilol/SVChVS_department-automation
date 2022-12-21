@@ -29,6 +29,7 @@ import {
   TranslateModule as NgxTranslateModule,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgScrollbarModule,
     FontAwesomeModule,
     OnlineStatusModule,
+    NgxSpinnerModule,
     NgxTranslateModule.forRoot({
       defaultLanguage: 'ru',
       loader: {

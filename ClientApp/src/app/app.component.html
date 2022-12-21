@@ -1,4 +1,37 @@
-﻿<div class="wrapper">
-	<app-loading-spinner></app-loading-spinner>
-	<router-outlet></router-outlet>
+﻿<!-- <mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxLayout="column" fxLayoutAlign="space-between">
+    <app-nav-menu (sidenavToggle)="sidenav.toggle()"></app-nav-menu>
+    <main fxLayout fxLayoutAlign="center" style="text-align: center">
+      <router-outlet></router-outlet>
+    </main>
+    <footer fxLayout fxLayoutAlign="center">
+      <div>
+        <h2>My Awesome Footer</h2>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+<!-- Toolbar -->
+
+<app-loading-spinner></app-loading-spinner>
+<div class="wrapper" [class.canvas]="(windowCanvas.isShow | async)">
+	<app-header></app-header>
+	<main class="page page_home custom-scrollbar">
+		<router-outlet></router-outlet>
+	</main>
+	<app-footer></app-footer>
 </div>
+
+<!-- 
+<div class="wrapper">
+  <app-nav-menu></app-nav-menu>
+
+  <div class="main">
+    <ng-scrollbar>
+      <router-outlet></router-outlet>
+    </ng-scrollbar>
+  </div>
+</div> -->
