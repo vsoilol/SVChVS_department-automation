@@ -1,0 +1,66 @@
+@use "sass:math";
+@import "fonts/icons";
+@import "variables";
+@import "base";
+
+:host {
+  color: #000000;
+}
+
+.main-page {
+  margin-top: rem(40);
+  // .main-page__container
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+  }
+  // .main-page__text-block
+  &__text-block {
+    display: flex;
+    flex-direction: column;
+    gap: rem(40);
+  }
+  // .main-page__section
+  &__section {
+  }
+  // .main-page__button
+  &__button {
+    align-self: center;
+    margin-bottom: rem(20);
+    display: inline-block;
+    font-size: rem(16);
+    padding: rem(10) rem(20);
+    text-align: center;
+    background-color: $mainDarkColor;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease 0s;
+
+    @media (max-width: rem(360)) {
+      align-self: auto;
+    }
+
+    &:hover {
+      color: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+.main-page-section {
+  display: flex;
+  flex-direction: column;
+  gap: rem(12);
+  // .main-page-section__title
+  &__title {
+    text-align: center;
+    font-weight: 700;
+    font-size: rem(25);
+  }
+  // .main-page-section__body
+  &__body {
+    text-align: justify;
+    font-size: rem(17);
+    line-height: math.div(20, 16);
+  }
+}
