@@ -1,0 +1,12 @@
+{
+  "I18N": {
+    "MAT_PAGINATOR": {
+      "FIRST_PAGE": "First page",
+      "ITEMS_PER_PAGE": "Items per page",
+      "LAST_PAGE": "Last page",
+      "NEXT_PAGE": "Next page",
+      "PREVIOUS_PAGE": "Previous page",
+      "OF": "of"
+    }
+  }
+}
