@@ -40,9 +40,7 @@ export class LoginWithFioComponent implements OnInit {
     private loginService: LoginService,
     private authenticationService: AuthenticationService,
     private loaderService: LoaderService
-  ) {
-    this.loginService.redirectToPage();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -54,8 +52,6 @@ export class LoginWithFioComponent implements OnInit {
         Validators.minLength(6),
       ]),
     });
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get loginFormControl() {
@@ -78,6 +74,7 @@ export class LoginWithFioComponent implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.loaderService.hide();
           this.loginService.redirectToPage();
         },
         error: (error) => {

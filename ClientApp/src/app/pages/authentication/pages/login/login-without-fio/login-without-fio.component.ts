@@ -41,9 +41,7 @@ export class LoginWithoutFioComponent implements OnInit {
     private loginService: LoginService,
     private authenticationService: AuthenticationService,
     private loaderService: LoaderService
-  ) {
-    this.loginService.redirectToPage();
-  }
+  ) {}
 
   emailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,8 +57,6 @@ export class LoginWithoutFioComponent implements OnInit {
         Validators.minLength(6),
       ]),
     });
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get loginFormControl() {
@@ -81,6 +77,7 @@ export class LoginWithoutFioComponent implements OnInit {
       )
       .subscribe({
         next: () => {
+          this.loaderService.hide();
           this.loginService.redirectToPage();
         },
         error: (error) => {

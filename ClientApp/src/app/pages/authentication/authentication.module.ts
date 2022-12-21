@@ -15,7 +15,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   imports: [
     AuthenticationRoutingModule,
-    NgScrollbarModule,
     MainModule,
     FormsModule,
     ReactiveFormsModule,
@@ -23,6 +22,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FlexLayoutModule,
     CommonModule,
   ],
-  declarations: [AuthenticationComponent, LoginComponent],
+  declarations: [AuthenticationComponent],
 })
 export class AuthenticationModule {}

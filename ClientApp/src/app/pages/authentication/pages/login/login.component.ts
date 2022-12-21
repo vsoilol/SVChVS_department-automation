@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
