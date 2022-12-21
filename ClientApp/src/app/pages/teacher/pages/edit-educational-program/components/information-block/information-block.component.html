@@ -1,0 +1,35 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="mainSpinner"></app-spinner>
+</div>
+
+<div
+  class="information-block layer"
+  *ngIf="informationBlock && !(spinnerService.isSpinnerWork | async)"
+>
+  <div class="information-block-header header">
+    <div class="information-block-header-title header-title">
+      <span class="title__item">{{ informationBlock.name }}</span>
+    </div>
+    <div class="information-block-header-buttons">
+      <button
+        mat-raised-button
+        class="mr-15"
+        (click)="updateInformationBlock()"
+      >
+        Сохранить
+      </button>
+    </div>
+  </div>
+
+  <div class="information-block-content">
+    <div class="information-block-content-edit">
+      <ckeditor
+        #myEditor
+        [config]="config"
+        [editor]="Editor"
+        [(ngModel)]="model.editorData"
+        (change)="onChange($event)"
+      ></ckeditor>
+    </div>
+  </div>
+</div>

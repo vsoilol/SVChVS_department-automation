@@ -1,0 +1,107 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="training-course-forms form-block" *ngIf="trainingCourseForms">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Форма проведения занятия</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Форма проведения занятия</mat-label>
+          <mat-select formControlName="trainingCourseFormId">
+            <mat-option
+              *ngFor="let trainingCourseForm of trainingCourseForms"
+              [value]="trainingCourseForm.id"
+              >{{ trainingCourseForm.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="class-type form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Вид аудиторных занятий:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Вид аудиторных занятий</mat-label>
+          <mat-select formControlName="classType">
+            <mat-option *ngFor="let type of classTypes" [value]="type.type">{{
+              type.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="main-lectures-layer-spinner spinner" *ngIf="isSpinnerWork">
+      <ngx-spinner
+        bdOpacity="0.9"
+        bdColor="#FFFFFF"
+        size="default"
+        color="#1010ee"
+        type="ball-clip-rotate"
+        [fullScreen]="false"
+        [name]="editTrainingCourseFormLayerSpinner"
+      >
+      </ngx-spinner>
+    </div>
+
+    <ng-container *ngIf="(classes | async).length > 0 && !isSpinnerWork">
+      <div class="from-class-content">
+        <div class="form-block-title">
+          <span class="form-block-title__item">С какого занятия</span>
+        </div>
+        <div class="form-block-content">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ classType.name }}</mat-label>
+            <mat-select formControlName="fromClassNumber">
+              <mat-option
+                *ngFor="let class of classes | async"
+                [value]="class.id"
+                >{{ class.number }}. {{ class.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="to-class-content">
+        <div class="form-block-title">
+          <span class="form-block-title__item">По какое занятия</span>
+        </div>
+        <div class="form-block-content">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ classType.name }}</mat-label>
+            <mat-select formControlName="toClassNumber">
+              <mat-option
+                *ngFor="let class of toClasses | async"
+                [value]="class.id"
+                >{{ class.number }}. {{ class.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+    </ng-container>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [disabled]="!form.valid"
+    (click)="closeDialog()"
+    cdkFocusInitial
+  >
+    Сохранить
+  </button>
+</div>

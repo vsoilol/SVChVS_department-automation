@@ -1,0 +1,81 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="methodicalRecommendationSpinner"></app-spinner>
+</div>
+<div
+  class="methodical-recommendations-layer layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="methodical-recommendations-header header">
+    <div class="methodical-recommendations-header-title header-title">
+      <span class="title__item">Методические рекомендации</span>
+    </div>
+    <div class="methodical-recommendations-header-buttons">
+      <button mat-raised-button class="mr-15" (click)="enableEdit()">
+        Добавить
+      </button>
+    </div>
+  </div>
+
+  <div class="methodical-recommendations-layer-content">
+    <span *ngIf="(methodicalRecommendations | async)?.length === 0"
+      >Нет данных</span
+    >
+
+    <table
+      *ngIf="(methodicalRecommendations | async)?.length !== 0"
+      mat-table
+      [dataSource]="methodicalRecommendations"
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef>Информация:</th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.content }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef>Ссылка</th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.link }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Действия</th>
+        <td mat-cell *matCellDef="let element">
+          <fa-icon
+            [icon]="faPencil"
+            class="text-info cursor-pointer mr-3"
+            (click)="enableEdit(element)"
+          ></fa-icon>
+          <fa-icon
+            [icon]="faTrash"
+            class="text-danger cursor-pointer"
+            (click)="openModal(popup, element.id)"
+          ></fa-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+
+<ng-template #popup let-d="dismiss">
+  <div class="modal-body text-center">
+    <h4 class="mb-4">
+      Are you sure, you want to delete this employee details?
+    </h4>
+    <button
+      class="btn btn-primary btn-sm pl-4 pr-4 mr-2"
+      (click)="deleteMethodicalRecommendation(); d()"
+    >
+      Yes
+    </button>
+    <button class="btn btn-secondary btn-sm pl-4 pr-4 ml-2" (click)="d()">
+      No
+    </button>
+  </div>
+</ng-template>

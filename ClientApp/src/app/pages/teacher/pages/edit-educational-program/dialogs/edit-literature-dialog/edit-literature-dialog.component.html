@@ -1,0 +1,59 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="literature-description form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Библиографическое описание:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Описание</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="literature-recommended form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Гриф:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Гриф</mat-label>
+          <textarea matInput formControlName="recommended"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="literature-setNumber form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Количество экземпляров:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Количество</mat-label>
+          <input
+            type="text"
+            formControlName="setNumber"
+            matInput
+            placeholder="Количество"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [disabled]="!form.valid"
+    (click)="closeDialog()"
+    cdkFocusInitial
+  >
+    Сохранить
+  </button>
+</div>

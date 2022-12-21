@@ -1,0 +1,28 @@
+.layer {
+  margin: 15px 0;
+}
+
+.header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.header-title {
+  display: table;
+  margin: auto 0;
+}
+
+.content {
+  min-height: 50px;
+}
+
+.spinner {
+  position: relative;
+  top: 25px;
+}
+
+.spinner__wrapper {
+  height: 85vh;
+}

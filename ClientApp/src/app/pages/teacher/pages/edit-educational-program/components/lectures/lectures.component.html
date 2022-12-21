@@ -1,0 +1,90 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="mainLecturesLayerSpinner"></app-spinner>
+</div>
+<div
+  class="lectures-layer layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="lectures-header header">
+    <div class="lectures-header-title header-title">
+      <span class="title__item">Лекции</span>
+    </div>
+    <div class="lectures-header-buttons">
+      <button mat-raised-button class="mr-15" (click)="enableEdit()">
+        Добавить
+      </button>
+    </div>
+  </div>
+
+  <div class="lectures-layer-content" *ngIf="(lectures | async)?.length === 0">
+    <span>Нет данных</span>
+  </div>
+
+  <div class="lectures-layer-content" *ngIf="(lectures | async)?.length !== 0">
+    <table mat-table [dataSource]="lectures" class="mat-elevation-z8">
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef>Номер:</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <span>{{ element.number }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Название</th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.name }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hours">
+        <th mat-header-cell *matHeaderCellDef>Часов</th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.hours }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="competences">
+        <th mat-header-cell *matHeaderCellDef>Компетенции</th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.competenceInfo }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Действия</th>
+        <td mat-cell *matCellDef="let element">
+          <fa-icon
+            [icon]="faPencil"
+            class="text-info cursor-pointer mr-3"
+            (click)="enableEdit(element)"
+          ></fa-icon>
+          <fa-icon
+            [icon]="faTrash"
+            class="text-danger cursor-pointer"
+            (click)="openModal(popup, element.id)"
+          ></fa-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+
+<ng-template #popup let-d="dismiss">
+  <div class="modal-body text-center">
+    <h4 class="mb-4">
+      Are you sure, you want to delete this employee details?
+    </h4>
+    <button
+      class="btn btn-primary btn-sm pl-4 pr-4 mr-2"
+      (click)="deleteLecture(); d()"
+    >
+      Yes
+    </button>
+    <button class="btn btn-secondary btn-sm pl-4 pr-4 ml-2" (click)="d()">
+      No
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,36 @@
+.form-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-block-title {
+  margin: 10px 0 10px 0;
+  font-weight: 500;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.week-content-knowledge-control-form-assesments {
+  .form-block-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: 15px 0 10px 0;
+
+    .form-block-title {
+      display: table;
+      margin: auto 0;
+    }
+  }
+
+  .mat-table {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mat-header-cell {
+    text-align: center;
+  }
+}

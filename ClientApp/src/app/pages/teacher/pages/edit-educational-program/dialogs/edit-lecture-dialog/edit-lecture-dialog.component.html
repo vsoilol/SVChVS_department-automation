@@ -1,0 +1,86 @@
+<ng-container *ngIf="form">
+  <div mat-dialog-content>
+    <form [formGroup]="form" *ngIf="!isSpinnerWork">
+      <div class="lecture-name form-block">
+        <div class="form-block-title">
+          <span class="form-block-title__item">Название:</span>
+        </div>
+        <div class="form-block-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Название</mat-label>
+            <input
+              type="text"
+              formControlName="name"
+              matInput
+              placeholder="Название"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="lecture-content form-block">
+        <div class="form-block-title">
+          <span class="form-block-title__item">Содержание:</span>
+        </div>
+        <div class="form-block-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Содержание</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="lecture-content form-block">
+        <div class="form-block-title">
+          <span class="form-block-title__item">Компетенции:</span>
+        </div>
+        <div class="form-block-content" *ngIf="competences">
+          <mat-form-field appearance="fill">
+            <mat-label>Компетенции</mat-label>
+            <mat-select multiple formControlName="competences">
+              <mat-option
+                *ngFor="let competence of competences"
+                [value]="competence.id"
+                >{{ competence.code }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="lecture-content form-block">
+        <div class="form-block-title">
+          <span class="form-block-title__item">Часов:</span>
+        </div>
+        <div class="form-block-content">
+          <mat-form-field appearance="fill">
+            <mat-label>Часов</mat-label>
+            <input
+              type="number"
+              formControlName="hours"
+              matInput
+              placeholder="Часов"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      [disabled]="!form.valid"
+      (click)="closeDialog()"
+      cdkFocusInitial
+    >
+      Сохранить
+    </button>
+  </div>
+</ng-container>

@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <p>Выберите блок</p>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Блок информации</mat-label>
+    <mat-select (valueChange)="functionToChangeValue($event)">
+      <mat-option *ngFor="let infoBlock of data" [value]="infoBlock">{{
+        infoBlock.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="chooseBlock" cdkFocusInitial>
+    Ok
+  </button>
+</div>

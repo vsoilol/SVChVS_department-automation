@@ -1,0 +1,103 @@
+<div
+	class="teacher__program-info program-info"
+	*ngIf="educationalProgram && additionalBlocksName.length !== 0">
+	<div class="program-info__panel panel-program-info">
+		<div class="panel-program-info__menu menu-panel">
+			<a class="menu-panel__link" (click)="navigate('information-block', '1.1')">
+				<span>Цель учебной дисциплины</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('information-block', '1.2')">
+				<span>Планируемые результаты изучения
+					дисциплины</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('information-block', '1.3')">
+				<span>Место учебной дисциплины в системе
+					подготовки студента</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('lectures')">
+				<span>Содержание лекционных занятий</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				*ngIf="educationalProgram.isPracticalLessons"
+				(click)="navigate('practicalLessons')">
+				<span>Содержание практических занятий</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				*ngIf="educationalProgram.isLaboratoryLessons"
+				(click)="navigate('laboratorylLessons')">
+				<span>Содержание лабораторных занятий</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('semesters')">
+				<span>Учебно-методическая карта учебной
+					дисциплины</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('trainingCourseForm')">
+				<span>Образовательные технологии</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('evaluationTools')">
+				<span>Оценочные средства</span>
+			</a>
+
+			<a class="menu-panel__link"
+				(click)="navigate('competenceFormationLevels')">
+				<span>Уровни сформированности компетенций</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				*ngFor="let blockData of additionalBlocksName"
+				(click)="navigate('information-block', blockData.number)">
+				<span>{{ blockData.name }}</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				(click)="navigate('literature', literatureType.Main)">
+				<span>Основная литература</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				(click)="navigate('literature', literatureType.Additional)">
+				<span>Дополнительная литература</span>
+			</a>
+
+			<a
+				class="menu-panel__link"
+				(click)="navigate('information-block', '7.4.3')">
+				<span>Перечень программного обеспечения</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('information-block', '7.3')">
+				<span>Перечень ресурсов сети Интернет</span>
+			</a>
+
+			<a class="menu-panel__link"
+				(click)="navigate('methodicalRecommendations')">
+				<span>Методические рекомендации</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('audience')">
+				<span>Аудитории</span>
+			</a>
+
+			<a class="menu-panel__link" (click)="navigate('reviewer')">
+				<span>Рецензент</span>
+			</a>
+		</div>
+
+		<div class="panel-program-info__content">
+			<router-outlet> </router-outlet>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+<table
+  *ngIf="(_dataSource | async)?.length !== 0"
+  mat-table
+  [dataSource]="_dataSource"
+  class="mat-elevation-z8"
+>
+  <ng-container matColumnDef="formationLevel">
+    <th mat-header-cell *matHeaderCellDef>
+      Уровни сформированности компетенции
+    </th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      <span>{{ getFormationLevelType(element.formationLevel) }}</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="factualDescription">
+    <th mat-header-cell *matHeaderCellDef>Содержательное описание уровня</th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngIf="element.factualDescription">{{
+        element.factualDescription
+      }}</span>
+      <span *ngIf="!element.factualDescription">Нет данных</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="learningOutcomes">
+    <th mat-header-cell *matHeaderCellDef>Результаты обучения</th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngIf="element.learningOutcomes">{{
+        element.learningOutcomes
+      }}</span>
+      <span *ngIf="!element.learningOutcomes">Нет данных</span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="evaluationToolTypes">
+    <th mat-header-cell *matHeaderCellDef>Оценочные средства</th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngIf="element.evaluationToolTypes.length === 0">Нет данных</span>
+      <div *ngIf="element.evaluationToolTypes.length > 0">
+        <ng-container
+          *ngFor="let evaluationToolType of element.evaluationToolTypes"
+        >
+          <span>{{ evaluationToolType.name }}</span>
+          <br />
+        </ng-container>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Действия</th>
+    <td mat-cell *matCellDef="let element">
+      <fa-icon
+        [icon]="faPencil"
+        class="text-info cursor-pointer mr-3"
+        (click)="enableEditing(element)"
+      ></fa-icon>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

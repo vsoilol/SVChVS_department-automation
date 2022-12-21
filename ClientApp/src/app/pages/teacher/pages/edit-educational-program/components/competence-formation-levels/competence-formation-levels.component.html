@@ -1,0 +1,33 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="competenceFormationLevelsSpinner"></app-spinner>
+</div>
+<div
+  class="competence-formation-levels layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="competence-formation-levels-table">
+    <div class="competence-formation-levels-header header">
+      <div class="competence-formation-levels-title header-title">
+        <span class="title__item">Уровни сформированности компетенций</span>
+      </div>
+    </div>
+    <div class="competence-formation-levels-content">
+      <div
+        class="competence-formation-layer layer"
+        *ngFor="let indicator of indicators"
+      >
+        <div class="competence-formation-header header">
+          <div class="competence-formation-header-title header-title">
+            <span class="title__item">{{ indicator.competenceCode }}</span>
+          </div>
+        </div>
+        <div class="competence-formation-content">
+          <app-competence-formation-level-table
+            [dataSource]="indicator.competenceFormationLevels"
+            (getAll)="getAll()"
+          ></app-competence-formation-level-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

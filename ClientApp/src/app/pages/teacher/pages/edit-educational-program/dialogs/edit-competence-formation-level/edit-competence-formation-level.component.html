@@ -1,0 +1,76 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="factual-description form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item"
+          >Содержательное описание уровня</span
+        >
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Содержательное описание уровня</mat-label>
+          <textarea
+            matInput
+            placeholder="Содержательное описание уровня"
+            formControlName="factualDescription"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="learning-outcomes form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Результаты обучения</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Результаты обучения</mat-label>
+          <textarea
+            matInput
+            placeholder="Результаты обучения"
+            formControlName="learningOutcomes"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="evaluation-tool-type form-block" *ngIf="!isLoaderWork">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Оценочные средства</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Результаты обучения</mat-label>
+          <mat-select
+            multiple
+            placeholder="Результаты обучения"
+            formControlName="evaluationToolTypeIds"
+          >
+            <mat-option
+              *ngFor="let evaluationToolType of evaluationToolTypes"
+              [value]="evaluationToolType.id"
+              >{{ evaluationToolType.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [disabled]="!form.valid"
+    (click)="closeDialog()"
+    cdkFocusInitial
+  >
+    Сохранить
+  </button>
+</div>

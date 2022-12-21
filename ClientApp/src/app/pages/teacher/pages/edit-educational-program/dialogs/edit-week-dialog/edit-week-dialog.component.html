@@ -1,0 +1,182 @@
+<h1 mat-dialog-title>Неделя {{ week.number }}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="form" *ngIf="!isSpinnerWork">
+    <div class="week-content-lecture form-block" *ngIf="lectures">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Лекция:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Лекция</mat-label>
+          <mat-select formControlName="lectureId">
+            <mat-option *ngFor="let lecture of lectures" [value]="lecture.id"
+              >{{ lecture.number }}. {{ lecture.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div
+      *ngIf="educationalProgramData.isPracticalLessons"
+      class="week-content-practical-lesson form-block"
+    >
+      <div class="form-block-title">
+        <span class="form-block-title__item">Практическая:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Практическая</mat-label>
+          <mat-select formControlName="practicalLessonId">
+            <mat-option
+              *ngFor="let practical of practicalClasses"
+              [value]="practical.id"
+              >{{ practical.number }}. {{ practical.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div
+      *ngIf="educationalProgramData.isLaboratoryLessons"
+      class="week-content-laboratory-lesson"
+    >
+      <div class="form-block-title">
+        <span class="form-block-title__item">Лабораторная:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Лабораторная</mat-label>
+          <mat-select formControlName="laboratoryLessonId">
+            <mat-option
+              *ngFor="let laboratory of laboratoryClasses"
+              [value]="laboratory.id"
+              >{{ laboratory.number }}. {{ laboratory.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="week-content-independent-work-hours">
+      <div class="form-block-title">
+        <span class="form-block-title__item"
+          >Самостоятельная работа, часы:</span
+        >
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Часы</mat-label>
+          <input
+            type="number"
+            matInput
+            placeholder="Часы"
+            formControlName="independentWorkHours"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="week-content-knowledge-control-form-assesments">
+      <div class="form-block-header">
+        <div class="form-block-title">
+          <span class="form-block-title__item">Форма котроля знаний:</span>
+        </div>
+        <div class="form-block-title-buttons">
+          <button
+            mat-raised-button
+            class="mr-15"
+            (click)="addFromGroupControl()"
+          >
+            Добавить
+          </button>
+        </div>
+      </div>
+
+      <div class="form-block-content">
+        <div>
+          <table
+            *ngIf="(dataSource | async)?.length !== 0"
+            mat-table
+            [dataSource]="dataSource"
+            class="mat-elevation-z8"
+            formArrayName="knowledgeControlFormAssesments"
+          >
+            <ng-container matColumnDef="knowledgeControlForm">
+              <th mat-header-cell *matHeaderCellDef>Форма контроля знаний</th>
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                [formGroupName]="i"
+              >
+                <mat-select formControlName="knowledgeControlFormId">
+                  <mat-option
+                    *ngFor="let item of knowledgeControlForms"
+                    [value]="item.id"
+                    >{{ item.shortName }}</mat-option
+                  >
+                </mat-select>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="maxMark">
+              <th mat-header-cell *matHeaderCellDef>Баллы (max)</th>
+              <td
+                mat-cell
+                *matCellDef="let element; let i = index"
+                [formGroupName]="i"
+              >
+                <input
+                  type="number"
+                  formControlName="maxMark"
+                  matInput
+                  placeholder="Балл"
+                />
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Действия</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <fa-icon
+                  [icon]="faTrash"
+                  class="text-danger cursor-pointer"
+                  (click)="deleteFromGroupControl(i)"
+                ></fa-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <p *ngIf="(dataSource | async)?.length == 0" class="text-center">
+            Данные не введены
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [disabled]="!form.valid"
+    (click)="closeDialog()"
+    cdkFocusInitial
+  >
+    Сохранить
+  </button>
+</div>

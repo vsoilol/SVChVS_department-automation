@@ -1,0 +1,79 @@
+.layer {
+  margin: 15px 0;
+}
+
+.header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.header-title {
+  display: table;
+  margin: auto 0;
+}
+
+.week-content-lecture,
+.week-content-practical-lesson,
+.week-content-laboratory-lesson,
+.week-content-independent-work-hours,
+.week-content-knowledge-control-form-assesments,
+.form-block {
+  display: flex;
+  margin: 10px 0;
+
+  &:first {
+    margin-top: 0;
+  }
+}
+
+.week-content-lecture-title,
+.week-content-practical-lesson-title,
+.week-content-laboratory-lesson-title,
+.week-content-independent-work-hours-title,
+.week-content-knowledge-control-form-assesments-title {
+  font-weight: 500;
+
+  &::after {
+    content: "\00a0 \00a0 ";
+  }
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.form-block {
+  flex-direction: column;
+}
+
+.form-block-title {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+}
+
+.week-content-knowledge-control-form-assesments-content {
+  .mat-table {
+    margin: 20px 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .mat-header-cell {
+    text-align: center;
+  }
+}
+
+.week-content-buttons {
+  margin: 20px 0 0 0;
+}
+
+.weeks-container {
+  min-height: 100px;
+}
+
+.weeks-layer-spinner {
+  position: relative;
+  top: 40px;
+}

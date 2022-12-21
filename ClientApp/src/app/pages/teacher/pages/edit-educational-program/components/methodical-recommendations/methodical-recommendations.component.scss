@@ -1,0 +1,45 @@
+.layer {
+  margin: 15px 0;
+}
+
+.header {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.spinner__wrapper {
+  height: 85vh;
+}
+
+.header-title {
+  display: table;
+  margin: auto 0;
+}
+
+.methodical-recommendations-layer-content {
+  .mat-table {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mat-header-cell {
+    text-align: center;
+  }
+
+  .form-control {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+.spinner {
+  position: relative;
+  top: 40px;
+}
+
+.methodical-recommendations-layer-content {
+  min-height: 100px;
+}

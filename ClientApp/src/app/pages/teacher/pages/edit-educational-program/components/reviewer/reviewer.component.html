@@ -1,0 +1,119 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="reviewerLayerSpinner"></app-spinner>
+</div>
+<div
+  class="reviewer-layer layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="reviewer-header header">
+    <div class="reviewer-header-title header-title">
+      <span class="title__item">Рецензент</span>
+    </div>
+    <div class="audience-header-buttons">
+      <button
+        mat-raised-button
+        class="mr-15"
+        *ngIf="!(isEdit | async)"
+        (click)="editReviewerInfo()"
+      >
+        Редактировать
+      </button>
+      <button
+        mat-raised-button
+        class="mr-15"
+        *ngIf="isEdit | async"
+        (click)="updateReviewerInfo()"
+        [disabled]="!form.valid"
+      >
+        Сохранить
+      </button>
+    </div>
+  </div>
+  <div class="reviewer-content content">
+    <div class="reviewer-content-edit" *ngIf="isEdit | async">
+      <form [formGroup]="form">
+        <div class="reviewer-name form-block">
+          <div class="form-block-title">
+            <span class="form-block-title__item">Имя:</span>
+          </div>
+          <div class="form-block-content">
+            <mat-form-field appearance="fill">
+              <mat-label>Имя</mat-label>
+              <input
+                type="text"
+                formControlName="name"
+                matInput
+                placeholder="Имя"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="reviewer-surname form-block">
+          <div class="form-block-title">
+            <span class="form-block-title__item">Фамилия:</span>
+          </div>
+          <div class="form-block-content">
+            <mat-form-field appearance="fill">
+              <mat-label>Фамилия</mat-label>
+              <input
+                type="text"
+                formControlName="surname"
+                matInput
+                placeholder="Фамилия"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="reviewer-patronic form-block">
+          <div class="form-block-title">
+            <span class="form-block-title__item">Отчество:</span>
+          </div>
+          <div class="form-block-content">
+            <mat-form-field appearance="fill">
+              <mat-label>Отчество</mat-label>
+              <input
+                type="text"
+                formControlName="patronymic"
+                matInput
+                placeholder="Отчество"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="reviewer-position form-block">
+          <div class="form-block-title">
+            <span class="form-block-title__item">Должность:</span>
+          </div>
+          <div class="form-block-content">
+            <mat-form-field appearance="fill">
+              <mat-label>Должность</mat-label>
+              <input
+                type="text"
+                formControlName="position"
+                matInput
+                placeholder="Должность"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="reviewer-content-info" *ngIf="!(isEdit | async) && reviewer">
+      <div class="reviewer-fio">
+        <span class="reviewer-fio__item"
+          >ФИО: {{ reviewer.surname }} {{ reviewer.name }}
+          {{ reviewer.patronymic }}</span
+        >
+      </div>
+      <div class="reviewer-position">
+        <span class="reviewer-position__item"
+          >Должность: {{ reviewer.position }}</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

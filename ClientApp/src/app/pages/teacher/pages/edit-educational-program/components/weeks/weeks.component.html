@@ -1,0 +1,154 @@
+<div class="weeks-container">
+  <div class="weeks-layer-spinner spinner" *ngIf="isSpinnerWork">
+    <ngx-spinner
+      bdOpacity="0.9"
+      bdColor="#f4f4f9"
+      size="default"
+      color="#1010ee"
+      type="ball-clip-rotate"
+      [fullScreen]="false"
+      [name]="weeksLayerSpinner"
+    >
+    </ngx-spinner>
+  </div>
+  <ng-container *ngIf="weeks && !isSpinnerWork">
+    <ngb-accordion #a="ngbAccordion" *ngFor="let week of weeks">
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Неделя {{ week.number }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="week-content">
+            <div class="week-content-lecture">
+              <div class="week-content-lecture-title">
+                <span class="week-content-lecture-title__item">Лекция:</span>
+              </div>
+              <div class="week-content-lecture-content">
+                <span *ngIf="week.lecture">{{ week.lecture.name }} </span>
+                <span *ngIf="!week.lecture">Нет данных</span>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div
+              *ngIf="educationalProgramData.isPracticalLessons"
+              class="week-content-practical-lesson"
+            >
+              <div class="week-content-practical-lesson-title">
+                <span class="week-content-practical-lesson-title__item"
+                  >Практическая:</span
+                >
+              </div>
+              <div class="week-content-practical-lesson-content">
+                <span *ngIf="week.practicalLesson"
+                  >{{ week.practicalLesson.name }}
+                </span>
+                <span *ngIf="!week.practicalLesson">Нет данных</span>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div
+              *ngIf="educationalProgramData.isLaboratoryLessons"
+              class="week-content-laboratory-lesson"
+            >
+              <div class="week-content-laboratory-lesson-title">
+                <span class="week-content-laboratory-lesson-title__item"
+                  >Лабораторная:</span
+                >
+              </div>
+              <div class="week-content-laboratory-lesson-content">
+                <span *ngIf="week.laboratoryLesson"
+                  >{{ week.laboratoryLesson.name }}
+                </span>
+                <span *ngIf="!week.laboratoryLesson">Нет данных</span>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="week-content-independent-work-hours">
+              <div class="week-content-independent-work-hours-title">
+                <span class="week-content-independent-work-hours-title__item"
+                  >Самостоятельная работа, часы:</span
+                >
+              </div>
+              <div class="week-content-independent-work-hours-content">
+                <span>{{ week.independentWorkHours }}</span>
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div
+              class="week-content-knowledge-control-form-assesments"
+              [ngClass]="{
+                'flex-column': week.knowledgeAssessments.length > 0
+              }"
+            >
+              <div class="week-content-knowledge-control-form-assesments-title">
+                <span
+                  class="week-content-knowledge-control-form-assesments-title__item"
+                  >Форма котроля знаний:</span
+                >
+              </div>
+              <div
+                class="week-content-knowledge-control-form-assesments-content"
+              >
+                <div *ngIf="week.knowledgeAssessments.length > 0">
+                  <table
+                    *ngIf="week"
+                    mat-table
+                    class="mat-elevation-z8"
+                    [dataSource]="week.knowledgeAssessments"
+                  >
+                    <ng-container matColumnDef="knowledgeControlForm">
+                      <th mat-header-cell *matHeaderCellDef>
+                        Форма контроля знаний
+                      </th>
+                      <td mat-cell *matCellDef="let element">
+                        <span>{{ element.shortName }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="maxMark">
+                      <th mat-header-cell *matHeaderCellDef>Баллы (max)</th>
+                      <td mat-cell *matCellDef="let element">
+                        <span>{{ element.maxMark }}</span>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                    ></tr>
+                  </table>
+                </div>
+                <span *ngIf="week.knowledgeAssessments.length <= 0"
+                  >Нет данных</span
+                >
+              </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="week-content-buttons">
+              <div class="week-content-buttons__item">
+                <button
+                  mat-raised-button
+                  class="mr-15"
+                  (click)="enableEditing(week)"
+                >
+                  Редактировать
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </ng-container>
+</div>

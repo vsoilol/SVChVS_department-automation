@@ -1,0 +1,42 @@
+<div class="weeks-layer layer">
+  <div class="weeks-header header">
+    <div class="weeks-header-title header-title">
+      <span class="title__item"
+        >Учебно-методическая карта учебной дисциплины</span
+      >
+    </div>
+  </div>
+  <div class="weeks-layer-content">
+    <ngb-accordion #a="ngbAccordion">
+      <ngb-panel
+        *ngFor="let semester of semesters; let i = index"
+        [id]="'accordion' + i.toString()"
+      >
+        <ng-template ngbPanelTitle>
+          <span>Семестер {{ semester.number }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <ng-container *ngIf="moduleNumbers">
+            <div class="semester-content" *ngFor="let number of moduleNumbers">
+              <div class="semester-content__item">
+                <div class="semester-content-header">
+                  <div
+                    class="semester-content-header-header-title header-title"
+                  >
+                    <span class="title__item">Модуль {{ number }}</span>
+                  </div>
+                </div>
+                <app-weeks
+                  [semesterId]="semester.id"
+                  [moduleNumber]="number"
+                ></app-weeks>
+              </div>
+
+              <mat-divider></mat-divider>
+            </div>
+          </ng-container>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

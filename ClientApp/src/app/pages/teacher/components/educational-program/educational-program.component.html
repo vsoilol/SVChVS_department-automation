@@ -1,0 +1,22 @@
+<div class="teacher-discipline-table">
+  <div class="teacher-discipline-table__info">
+    <a routerLink="/teacher/guide" class="teacher-discipline-table__link">Как правильно заполнять шаблон РП?</a>
+  </div>
+  <div class="container-fluid teacher-discipline-table__body">
+    <div class="card card-body">
+      <div class="main-text">
+        <h3 class="text">Рабочие программы</h3>
+      </div>
+
+      <app-data-table
+        [columnList]="columnList"
+        [actionButtons]="actionButtons"
+        [storageKey]="STORAGE_KEY"
+        [getAll]="getAllWithPagination"
+      >
+      </app-data-table>
+    </div>
+  </div>
+</div>
+
+

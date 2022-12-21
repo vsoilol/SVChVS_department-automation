@@ -1,0 +1,125 @@
+
+<div class="spinner__wrapper" *ngIf="(spinnerService.isSpinnerWork | async)">
+  <app-spinner [name]="evaluationToolsLayerSpinner"></app-spinner>
+</div>
+<div
+  class="evaluation-tools-layer layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="evaluation-tools-header header">
+    <div class="evaluation-tools-header-title header-title">
+      <span class="title__item">Оценочные средства</span>
+    </div>
+    <div class="evaluation-tools-header-buttons">
+      <button
+        mat-raised-button
+        class="mr-15"
+        [disabled]="isDisable"
+        (click)="addEmptyEvaluationTool()"
+      >
+        Добавить
+      </button>
+    </div>
+  </div>
+
+  <div class="evaluation-tools-layer-content">
+    <span *ngIf="(dataSource | async)?.length === 0">Нет данных</span>
+
+    <form [formGroup]="form">
+      <table
+        *ngIf="(dataSource | async)?.length !== 0"
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="evaluationToolTypes">
+          <th mat-header-cell *matHeaderCellDef>Вид оценочных средств</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.isEdit">
+              <mat-form-field appearance="fill">
+                <mat-label>Вид оценочных средств</mat-label>
+                <mat-select formControlName="evaluationToolTypeId">
+                  <mat-option
+                    *ngFor="
+                      let evaluationToolType of evaluationToolTypes | async
+                    "
+                    [value]="evaluationToolType.id"
+                    >{{ evaluationToolType.name }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="!element.isEdit">
+              <span>{{ element.name }}</span>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="setNumber">
+          <th mat-header-cell *matHeaderCellDef>Количество комплектов</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.isEdit">
+              <input
+                type="number"
+                formControlName="setNumber"
+                class="form-control"
+                placeholder="Количество коплектов"
+              />
+            </ng-container>
+
+            <ng-container *ngIf="!element.isEdit">
+              <span>{{ element.setNumber }}</span>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Действия</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <ng-container *ngIf="!element.isEdit">
+              <fa-icon
+                [icon]="faTrash"
+                class="text-danger cursor-pointer"
+                (click)="openModal(popup, element.evaluationToolTypeId)"
+              ></fa-icon>
+            </ng-container>
+
+            <ng-container *ngIf="element.isEdit">
+              <fa-icon
+                [icon]="faCheck"
+                class="text-success cursor-pointer mr-3"
+                (click)="createEvaluationTool()"
+              ></fa-icon>
+              <fa-icon
+                [icon]="faTimes"
+                class="text-danger cursor-pointer"
+                (click)="cancelEditing()"
+              ></fa-icon>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+<ng-template #popup let-d="dismiss">
+  <div class="modal-body text-center">
+    <h4 class="mb-4">
+      Are you sure, you want to delete this employee details?
+    </h4>
+    <button
+      class="btn btn-primary btn-sm pl-4 pr-4 mr-2"
+      (click)="deleteEvaluationTool(); d()"
+    >
+      Yes
+    </button>
+    <button class="btn btn-secondary btn-sm pl-4 pr-4 ml-2" (click)="d()">
+      No
+    </button>
+  </div>
+</ng-template>

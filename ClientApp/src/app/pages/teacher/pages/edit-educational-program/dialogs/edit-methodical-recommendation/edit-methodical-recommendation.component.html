@@ -1,0 +1,45 @@
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="methodical-recommendation-content form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Описание:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Описание</mat-label>
+          <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="methodical-recommendation-link form-block">
+      <div class="form-block-title">
+        <span class="form-block-title__item">Ссылка:</span>
+      </div>
+      <div class="form-block-content">
+        <mat-form-field appearance="fill">
+          <mat-label>Ссылка</mat-label>
+          <input
+            type="text"
+            formControlName="link"
+            matInput
+            placeholder="Ссылка"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [disabled]="!form.valid"
+    (click)="closeDialog()"
+    cdkFocusInitial
+  >
+    Сохранить
+  </button>
+</div>

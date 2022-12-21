@@ -1,0 +1,53 @@
+@use "sass:math";
+@import "base/mixins";
+
+.teacher {
+  // .teacher__program-info
+  &__program-info {
+    padding: em(15, 14) 0;
+  }
+}
+.program-info {
+  // .program-info__panel
+  &__panel {
+  }
+}
+.panel-program-info {
+  display: flex;
+  flex-direction: row;
+  gap: rem(30);
+
+  // .panel-program-info__menu
+  &__menu {
+    padding: em(20, 14);
+  }
+  // .panel-program-info__content
+  &__content {
+    flex: 1 0 auto;
+  }
+}
+.menu-panel {
+  color: #464f60;
+  box-shadow: 0 5px 7px 7px #0000001f;
+  border-radius: rem(10);
+  display: flex;
+  flex-direction: column;
+  width: rem(360);
+  flex: 0 0 auto;
+
+  // .menu-panel__link
+  &__link {
+    padding: rem(10) rem(15);
+    transition: all 0.3s ease 0s;
+
+    &:hover {
+      background-color: #edf0f2;
+      cursor: pointer;
+      border-radius: 0.25rem;
+    }
+
+    span {
+      line-height: math.div(20, 14);
+    }
+  }
+}

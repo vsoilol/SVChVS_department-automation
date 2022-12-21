@@ -1,0 +1,58 @@
+<div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+  <app-spinner [name]="audienceLayerSpinner"></app-spinner>
+</div>
+<div
+  class="audience-layer layer"
+  *ngIf="!(spinnerService.isSpinnerWork | async)"
+>
+  <div class="audience-header header">
+    <div class="audience-header-title header-title">
+      <span class="title__item">Аудитории</span>
+    </div>
+    <div class="audience-header-buttons">
+      <button
+        mat-raised-button
+        class="mr-15"
+        *ngIf="!(isEdit | async)"
+        (click)="editAudiences()"
+      >
+        Редактировать
+      </button>
+      <button
+        mat-raised-button
+        class="mr-15"
+        *ngIf="isEdit | async"
+        (click)="updateAudiencesInfo()"
+      >
+        Сохранить
+      </button>
+    </div>
+  </div>
+  <div class="audience-content content">
+    <div
+      class="audience-content-edit"
+      *ngIf="(isEdit | async) && checkedAudiences"
+    >
+      <div class="audiences-list-checkbox">
+        <div
+          class="audience-checkbox"
+          *ngFor="let audience of checkedAudiences"
+        >
+          <mat-checkbox [(ngModel)]="audience.completed">
+            {{ audience.info.number }}/{{ audience.info.buildingNumber }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <span *ngIf="!(isEdit | async) && audiences.length === 0">Нет данных</span>
+
+    <div class="audience-content-info" *ngIf="!(isEdit | async) && audiences">
+      <div class="audience-info" *ngFor="let audience of audiences; index as i">
+        <span class="audience-info__item">
+          {{ i + 1 }}) {{ audience.number }}/{{ audience.buildingNumber }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
