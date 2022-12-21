@@ -1,0 +1,16 @@
+
+<div class="container-fluid all-users p-5">
+	<div class="card card-body" *ngIf="additionalFilters.length !== 0">
+		<div class="main-text">
+			<h3 class="text">Преподаватели</h3>
+		</div>
+
+		<app-data-table
+			[columnList]="columnList"
+			[actionButtons]="actionButtons"
+			[storageKey]="STORAGE_KEY"
+			[getAll]="getAllWithPagination"
+			[additionalFilters]="additionalFilters">
+		</app-data-table>
+	</div>
+</div>
