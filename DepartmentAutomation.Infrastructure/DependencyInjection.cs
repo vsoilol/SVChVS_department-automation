@@ -1,14 +1,15 @@
-﻿using DepartmentAutomation.Application.Common.Interfaces;
+﻿using System;
+using DepartmentAutomation.Application.Common.Interfaces;
 using DepartmentAutomation.Domain.Entities.UserInfo;
 using DepartmentAutomation.Infrastructure.Extensions.Configs;
 using DepartmentAutomation.Infrastructure.Identity;
 using DepartmentAutomation.Infrastructure.Persistence;
 using DepartmentAutomation.WordDocument;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 
 namespace DepartmentAutomation.Infrastructure
 {

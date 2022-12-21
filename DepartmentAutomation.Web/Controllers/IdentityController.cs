@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DepartmentAutomation.Application.Common.Attributes;
 using DepartmentAutomation.Application.Common.Interfaces;
-using DepartmentAutomation.Application.Contracts.Requests;
 using DepartmentAutomation.Application.Contracts.Requests.Identity;
-using DepartmentAutomation.Application.Contracts.Responses;
 using DepartmentAutomation.Application.Contracts.Responses.Identity;
 using DepartmentAutomation.Domain.Enums;
 using DepartmentAutomation.Shared.Logger;
@@ -32,31 +30,6 @@ namespace DepartmentAutomation.Web.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Register user use email and password
-        /// </summary>
-        /// <response code="200">Return jwtToken and RefreshToken</response>
-        /// <response code="400">Error when register user</response>
-        /*[HttpPost(ApiRoutes.Identity.Register)]
-        public async Task<IActionResult> Register([FromBody] UserRegistrationRequest request)
-        {
-            var authResponse = await _identityService.RegisterAsync(request.Email, request.Password);
-
-            if (!authResponse.Success)
-            {
-                return BadRequest(new AuthFailedResponse
-                {
-                    Errors = authResponse.Errors,
-                });
-            }
-
-            // Response.SetRefreshTokenCookie(authResponse.RefreshToken);
-            return Ok(new AuthSuccessResponse
-            {
-                Token = authResponse.Token,
-                RefreshToken = authResponse.RefreshToken,
-            });
-        }*/
         [HttpPost(ApiRoutes.Identity.Login)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {

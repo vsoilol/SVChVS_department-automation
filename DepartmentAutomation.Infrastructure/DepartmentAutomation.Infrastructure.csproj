@@ -51,9 +51,4 @@
         <ProjectReference Include="..\DepartmentAutomation.WordDocument\DepartmentAutomation.WordDocument.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Services" />
-      <Folder Include="Services\WordDocument" />
-    </ItemGroup>
-
 </Project>
