@@ -1,0 +1,62 @@
+<!-- <div class="header" *ngIf="user">
+	<a class="header__title" routerLink="/">Генерация РП</a>
+
+	<div class="header__items">
+		<div class="header-links">
+			<div class="header__link">
+				<div class="link__underlining">
+					<span (click)="logout()" class="link-text">Выйти</span>
+				</div>
+			</div>
+		</div>
+		<div class="header__profile">
+			<div class="profile-image">
+				<span class="profile-image__text">{{
+					user.email.charAt(0).toUpperCase()
+					}}</span>
+			</div>
+		</div>
+	</div>
+</div> -->
+<div class="header">
+
+	<div class="header__first-stage first-stage-header">
+		<div class="header__container">
+			<div class="header__logo logo-header">
+				<div class="logo-header__logo _icon-logo"></div>
+				<a routerLink="/" class="logo-header__title title-header">
+					<div class="title-header__first-line">Генератор</div>
+					<div class="title-header__second-line">рабочих программ</div>
+				</a>
+			</div>
+
+      <nav class="header__navbar navbar-header">
+        <a *ngIf="!user" routerLink="/authentication" class="navbar-header__link">Войти в систему</a>
+        <ng-container *ngIf="user">
+          <ng-container [ngSwitch]="user.role">
+            <a *ngSwitchCase="role.Teacher" routerLink="/teacher" class="navbar-header__link">Преподаватель</a>
+            <a *ngSwitchCase="role.Admin" routerLink="/admin" class="navbar-header__link">Админ</a>
+            <a *ngSwitchCase="role.DepartmentHead" routerLink="/departmentHead" class="navbar-header__link">Заведующий кафедры</a>
+          </ng-container>
+          <a (click)="logout()" class="navbar-header__link">Выйти</a>
+        </ng-container>
+      </nav>
+
+		</div>
+	</div>
+
+	<div class="header__second-stage second-header">
+		<div class="second-header__container">
+			<div class="second-header__title title-second-header">
+				<div class="title-second-header__first-line">Генератор</div>
+				<div class="title-second-header__second-line">рабочих программ</div>
+			</div>
+			<div class="second-header__image">
+				<img src="assets/img/header/emblem.png" alt="">
+			</div>
+
+		</div>
+	</div>
+
+
+</div>

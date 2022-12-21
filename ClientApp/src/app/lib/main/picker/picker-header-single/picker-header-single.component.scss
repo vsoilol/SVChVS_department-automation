@@ -1,0 +1,50 @@
+.picker-header {
+  display: flex;
+  height: 40px;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+    0px 0px 0px 1px rgb(104 113 130 / 16%);
+  border-radius: 6px;
+  transition: box-shadow 0.3s;
+
+  &.invalid {
+    border: 1px solid #f10606;
+  }
+
+  &:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #a1a9b8;
+    padding: 0 12px;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__arrow-down-btn {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    margin: 8px;
+    min-width: 0;
+    flex-shrink: 0;
+    padding: 0;
+  }
+}
+
+.gray-icon {
+  color: #868fa0;
+}

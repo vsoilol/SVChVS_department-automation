@@ -1,0 +1,231 @@
+<div class="data-table" [formGroup]="form">
+	<div class="table-filters" formGroupName="filterForm">
+		<div class="button-filter" *ngIf="false" formArrayName="columnList">
+			<button class="button-filter__item" [matMenuTriggerFor]="filterMenu">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M13.79 2.61564C14.3029 1.9591 13.8351 1 13.002 1H3.00186C2.16871 1
+						1.70091 1.9591 2.21383 2.61564L7.03983 8.72867C7.1772 8.90449 7.25181
+						9.1212 7.25181 9.34432V14.7961C7.25181 14.9743 7.46724 15.0635 7.59323
+						14.9375L8.60536 13.9254C8.69913 13.8316 8.75181 13.7044 8.75181
+						13.5718V9.34432C8.75181 9.1212 8.82643 8.90449 8.96379 8.72867L13.79
+						2.61564Z"
+						fill="#464F60"
+						/>
+					</svg>
+				</button>
+
+				<mat-menu #filterMenu="matMenu" class="button-menu">
+					<div
+						*ngFor="let column of columnList; let i= index"
+						[formGroupName]="i">
+						<div class="custom-control custom-checkbox">
+							<input
+								id="checkbox{{ i }}"
+								type="checkbox"
+								class="custom-control-input"
+								(change)="persistColumnPreference()"
+								value=""
+								formControlName="visible"
+								/>
+							<label for="checkbox{{ i }}" class="custom-control-label">
+								{{ column.label }}
+							</label>
+						</div>
+					</div>
+				</mat-menu>
+			</div>
+
+			<div class="input-filter">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 16 16"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg">
+					<path
+						fill-rule="evenodd"
+						clip-rule="evenodd"
+						d="M10.6821 11.7458C9.66576 12.5361 8.38866 13.0067 7.00167
+						13.0067C3.68704 13.0067 1 10.3189 1 7.00335C1 3.68779 3.68704 1 7.00167
+						1C10.3163 1 13.0033 3.68779 13.0033 7.00335C13.0033 8.39059 12.533 9.66794
+						11.743 10.6845L14.7799 13.7186C15.0731 14.0115 15.0734 14.4867 14.7806
+						14.7799C14.4878 15.0731 14.0128 15.0734 13.7196 14.7805L10.6821
+						11.7458ZM11.5029 7.00335C11.5029 9.49002 9.48765 11.5059 7.00167
+						11.5059C4.5157 11.5059 2.50042 9.49002 2.50042 7.00335C2.50042 4.51668
+						4.5157 2.50084 7.00167 2.50084C9.48765 2.50084 11.5029 4.51668 11.5029
+						7.00335Z"
+						fill="#868FA0"
+						/>
+					</svg>
+					<input
+						class="input-field"
+						type="text"
+						placeholder="Поиск..."
+						formControlName="searchString"
+						/>
+				</div>
+
+				<div
+					class="select-filter"
+					*ngIf="additionalFilters.length !== 0"
+					formGroupName="additionalFilters">
+					<div class="select-filter__item" *ngFor="let item of additionalFilters">
+						<app-picker
+							[formControlName]="item.formName"
+							[options]="item.values"
+							[placeholder]="item.name"
+							[width]="item.selectWidth">
+						</app-picker>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-3">
+				<div class="col-md-12">
+					<div class="table-progress-bar">
+						<mat-progress-bar mode="indeterminate" *ngIf="isSpinerWork">
+						</mat-progress-bar>
+					</div>
+
+					<div class="table-responsive">
+						<table class="main-table" cdk-table [dataSource]="dataSource">
+							<ng-container
+								[cdkColumnDef]="column.field"
+								*ngFor="let column of columnList">
+								<th
+									cdk-header-cell
+									*cdkHeaderCellDef
+									[style.width]="column.width ? column.width : ''">
+									<div class="column-elements">
+										<span class="column__text" *ngIf="!column.propertyName">
+											{{ column.label }}
+										</span>
+										<span
+											class="column__text pointer"
+											(click)="doSort(column.propertyName)"
+											*ngIf="column.propertyName">
+											{{ column.label }}
+										</span>
+
+										<div class="arrows" *ngIf="column.propertyName">
+											<svg
+												width="8"
+												height="5"
+												viewBox="0 0 8 5"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+												[ngClass]="
+												propertyName === column.propertyName &&
+												sortDirection === 1
+												? 'arrow-black'
+												: 'arrow-normal'
+												">
+												<path
+													d="M4.40962 0.585167C4.21057 0.300808 3.78943 0.300807 3.59038
+													0.585166L1.05071 4.21327C0.81874 4.54466 1.05582 5 1.46033
+													5H6.53967C6.94418 5 7.18126 4.54466 6.94929 4.21327L4.40962
+													0.585167Z"
+													/>
+												</svg>
+
+												<svg
+													width="8"
+													height="5"
+													viewBox="0 0 8 5"
+													fill="none"
+													xmlns="http://www.w3.org/2000/svg"
+													[ngClass]="
+													propertyName === column.propertyName &&
+													sortDirection === 0
+													? 'arrow-black'
+													: 'arrow-normal'
+													">
+													<path
+														d="M4.40962 4.41483C4.21057 4.69919 3.78943 4.69919 3.59038
+														4.41483L1.05071 0.786732C0.81874 0.455343 1.05582 0 1.46033
+														0H6.53967C6.94418 0 7.18126 0.455342 6.94929 0.786731L4.40962
+														4.41483Z"
+														/>
+													</svg>
+												</div>
+											</div>
+										</th>
+										<td cdk-cell *cdkCellDef="let element" [style.width]="column.width ?
+											column.width : ''">
+											<span class="text-overflow-dynamic-container">
+												<span
+													[ngClass]="
+													column.getRowStyle
+													? column.getRowStyle(element[column.field])
+													: 'text-overflow-dynamic-ellipsis'
+													">
+													{{
+													column.getRowInfo
+													? column.getRowInfo(element[column.field])
+													: element[column.field]
+													}}
+												</span>
+											</span>
+
+										</td>
+									</ng-container>
+
+									<ng-container cdkColumnDef="action">
+										<th cdk-header-cell *cdkHeaderCellDef class="action-button__header"></th>
+										<td cdk-cell *cdkCellDef="let element" class="action-button__cell">
+											<button [matMenuTriggerFor]="menu">
+												<div class="menu__item--kebab" tabindex="4">
+													<div class="circle"></div>
+													<div class="circle"></div>
+													<div class="circle"></div>
+													<div class="circle"></div>
+													<div class="circle"></div>
+												</div>
+											</button>
+
+											<mat-menu #menu="matMenu" class="button-menu">
+												<button
+													mat-menu-item
+													class="button-menu__item"
+													(click)="runClickButtonFunction(buttonItem, element)"
+													*ngFor="let buttonItem of actionButtons">
+													<span class="button-text">{{
+														buttonItem.getButtonInfo
+														? buttonItem.getButtonInfo(element)
+														: buttonItem.name
+														}}</span>
+												</button>
+											</mat-menu>
+										</td>
+									</ng-container>
+
+									<tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+									<tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+								</table>
+
+								<mat-paginator
+									[length]="itemsCount"
+									[pageSize]="itemsPerPageFormValue"
+									[pageSizeOptions]="[5, 10, 25, 100]"
+									(page)="pageChange($event)"
+									aria-label="Select page"
+									[hidden]="(dataSource | async)?.length == 0">
+								</mat-paginator>
+
+								<div class="data-not-found-text">
+									<p
+										*ngIf="(dataSource | async)?.length == 0 && !isSpinerWork"
+										class="text-center">
+										Записей Не Найдено!
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>

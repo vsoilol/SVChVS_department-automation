@@ -1,0 +1,43 @@
+<!-- <mat-toolbar>
+  <button
+    mat-icon-button
+    *ngIf="sidenav.mode === 'over'"
+    (click)="sidenav.toggle()"
+  >
+    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  </button>
+  Responsive side navigation
+</mat-toolbar> -->
+<app-header [sidenav]="sidenav"></app-header>
+
+<mat-sidenav-container>
+	<mat-sidenav #sidenav="matSidenav" mode="over">
+		<!-- <ng-content select="[menu]"></ng-content> -->
+		<!-- 
+    <img
+      class="avatar mat-elevation-z8"
+      src="https://cdn.vox-cdn.com/thumbor/lFQ3pGOjzP1XQ5puQms14ad7Wv8=/0x0:1400x788/920x613/filters:focal(588x282:812x506):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/70412073/0377c76083423a1414e4001161e0cdffb0b36e1f_760x400.0.png"
+    />
+
+    <h4 class="name">{{ item.name }}</h4>
+    <p class="designation">{{ item.designation }}</p> -->
+		<mat-divider></mat-divider>
+
+		<button
+			mat-button
+			class="menu-button"
+			*ngFor="let button of item.buttons"
+			(click)="router.navigate([button.link])">
+			<mat-icon>{{ button.icon }}</mat-icon>
+			<span>{{ button.content }}</span>
+		</button>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+		<!-- <ng-content select="[main]" class="content"></ng-content> -->
+		<div class="content mat-elevation-z4">
+			<ng-content select="[main]" class="content"></ng-content>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

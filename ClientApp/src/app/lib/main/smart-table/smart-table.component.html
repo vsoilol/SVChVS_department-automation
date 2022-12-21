@@ -1,0 +1,351 @@
+<div class="container-fluid p-5">
+  <div class="card card-body">
+    <h3>Employee Table</h3>
+    <div class="row mt-3">
+      <div class="col-lg-3">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="search"
+          (keyup)="getEmployees()"
+          placeholder="Search by employee name"
+        />
+      </div>
+
+      <div class="col-lg-2">
+        <select
+          class="custom-select"
+          id="status"
+          [(ngModel)]="status"
+          (change)="getEmployees()"
+        >
+          <option value="All">All</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <label for="status"></label>
+      </div>
+
+      <div class="col-lg-1 custom-drop-down">
+        <div class="d-inline-block" [autoClose]="'outside'" ngbDropdown>
+          <button class="btn btn-outline custom-select" ngbDropdownToggle>
+            <fa-icon [icon]="faFilter"></fa-icon>
+          </button>
+          <div ngbDropdownMenu>
+            <div *ngFor="let column of columnList; let i = index">
+              <div class="custom-control custom-checkbox">
+                <input
+                  id="checkbox{{ i }}"
+                  type="checkbox"
+                  class="custom-control-input"
+                  [(ngModel)]="column.visible"
+                  (change)="persistColumnPreference()"
+                  value=""
+                />
+                <label for="checkbox{{ i }}" class="custom-control-label">
+                  {{ column.label }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2">
+        <select
+          id="itemsPerPage"
+          class="form-control custom-select"
+          [(ngModel)]="itemsPerPage"
+          (change)="getEmployees()"
+        >
+          <option value="5">5 Rows</option>
+          <option value="10">10 Rows</option>
+          <option value="20">20 Rows</option>
+        </select>
+        <label for="itemsPerPage"></label>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="float-right">
+          <button
+            class="btn btn-sm btn-primary text-uppercase"
+            (click)="addEmployee()"
+          >
+            Add Employee
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <form [formGroup]="form">
+            <table
+              *ngIf="(dataSource | async)?.length !== 0"
+              class="table table-hover"
+              cdk-table
+              [dataSource]="dataSource"
+              formArrayName="employeeList"
+            >
+              <!-- Position Column -->
+              <ng-container cdkColumnDef="status">
+                <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+                <td
+                  cdk-cell
+                  *cdkCellDef="let element; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ng-container *ngIf="!element.edit">
+                    <label
+                      class="label label-success"
+                      *ngIf="element.status == 'Active'"
+                      >Active</label
+                    >
+                    <label
+                      class="label label-danger"
+                      *ngIf="element.status == 'Inactive'"
+                      >Inactive</label
+                    >
+                  </ng-container>
+
+                  <ng-container *ngIf="element.edit">
+                    <select
+                      class="form-control mb-0 custom-select"
+                      formControlName="status"
+                    >
+                      <option value="">Select Status</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
+                    <div class="position-relative">
+                      <div
+                        class="text-danger"
+                        *ngIf="getError(i, 'status', ['required'])"
+                      >
+                        <p class="mb-0 pl-1 pr-1">
+                          {{ getError(i, "status", ["required"]) }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container cdkColumnDef="name">
+                <th cdk-header-cell *cdkHeaderCellDef>
+                  <span class="cursor-poiner" (click)="doSort('employee_name')">
+                    Name
+                  </span>
+                  <span *ngIf="sortKey === 'employee_name'">
+                    {{ sortDirection === "asc" ? "↑" : "↓" }}
+                  </span>
+                </th>
+                <td
+                  cdk-cell
+                  *cdkCellDef="let element; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ng-container *ngIf="!element.edit">
+                    {{ element.employee_name }}
+                  </ng-container>
+
+                  <ng-container *ngIf="element.edit">
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      placeholder="Enter employee name"
+                    />
+                    <div class="position-relative">
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                          getError(i, 'name', [
+                            'required',
+                            'minlength',
+                            'maxlength'
+                          ])
+                        "
+                      >
+                        <p class="mb-0 pl-1 pr-1">
+                          {{
+                            getError(i, "name", [
+                              "required",
+                              "minlength",
+                              "maxlength"
+                            ])
+                          }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container cdkColumnDef="salary">
+                <th cdk-header-cell *cdkHeaderCellDef>
+                  <span
+                    class="cursor-poiner"
+                    (click)="doSort('employee_salary')"
+                  >
+                    Salary
+                  </span>
+                  <span *ngIf="sortKey === 'employee_salary'">
+                    {{ sortDirection === "asc" ? "↑" : "↓" }}
+                  </span>
+                </th>
+                <td
+                  cdk-cell
+                  *cdkCellDef="let element; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ng-container *ngIf="!element.edit">
+                    {{ element.employee_salary }}
+                  </ng-container>
+
+                  <ng-container *ngIf="element.edit">
+                    <input
+                      type="number"
+                      formControlName="salary"
+                      class="form-control"
+                      placeholder="Enter employee salary"
+                    />
+                    <div class="position-relative">
+                      <div
+                        class="text-danger"
+                        *ngIf="getError(i, 'salary', ['required', 'min'])"
+                      >
+                        <p class="mb-0 pl-1 pr-1">
+                          {{ getError(i, "salary", ["required", "min"]) }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container cdkColumnDef="email">
+                <th cdk-header-cell *cdkHeaderCellDef>
+                  <span
+                    class="cursor-poiner"
+                    (click)="doSort('employee_email')"
+                  >
+                    Email
+                  </span>
+                  <span *ngIf="sortKey === 'employee_email'">
+                    {{ sortDirection === "asc" ? "↑" : "↓" }}
+                  </span>
+                </th>
+
+                <td
+                  cdk-cell
+                  *cdkCellDef="let element; let i = index"
+                  [formGroupName]="i"
+                >
+                  <ng-container *ngIf="!element.edit">
+                    {{ element.employee_email }}
+                  </ng-container>
+
+                  <ng-container *ngIf="element.edit">
+                    <input
+                      type="text"
+                      formControlName="email"
+                      class="form-control"
+                      placeholder="Enter employee email"
+                    />
+                    <div class="position-relative">
+                      <div
+                        class="text-danger"
+                        *ngIf="getError(i, 'email', ['required', 'pattern'])"
+                      >
+                        <p class="mb-0 pl-1 pr-1">
+                          {{ getError(i, "email", ["required", "pattern"]) }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <ng-container cdkColumnDef="action">
+                <th cdk-header-cell *cdkHeaderCellDef>Action</th>
+                <td cdk-cell *cdkCellDef="let element">
+                  <ng-container *ngIf="!element.edit">
+                    <fa-icon
+                      [icon]="faPencil"
+                      class="text-info cursor-pointer mr-3"
+                      (click)="element.edit = true"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faTrash"
+                      class="text-danger cursor-pointer"
+                      (click)="openModal(popup, element.id)"
+                    ></fa-icon>
+                  </ng-container>
+
+                  <ng-container *ngIf="element.edit">
+                    <fa-icon
+                      [icon]="faCheck"
+                      class="text-success cursor-pointer mr-3"
+                      (click)="saveEmployee(element)"
+                    ></fa-icon>
+                    <fa-icon
+                      [icon]="faTimes"
+                      class="text-danger cursor-pointer"
+                      (click)="cancelEditing(element)"
+                    ></fa-icon>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+              <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+              <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </form>
+          <p *ngIf="(dataSource | async)?.length == 0" class="text-center">
+            No Data Found
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="offset-md-7 col-md-5">
+      <ngb-pagination
+        class="d-flex justify-content-end"
+        [collectionSize]="itemsCount"
+        [pageSize]="itemsPerPage"
+        [(page)]="currentPage"
+        [boundaryLinks]="true"
+        [maxSize]="3"
+        [rotate]="true"
+        [ellipses]="false"
+        (pageChange)="pageChange($event)"
+      >
+      </ngb-pagination>
+    </div>
+
+    <pre *ngIf="form">{{ form.value | json }}</pre>
+  </div>
+</div>
+
+<div #toast id="toast-style"></div>
+
+<ng-template #popup let-d="dismiss">
+  <div class="modal-body text-center">
+    <h4 class="mb-4">
+      Are you sure, you want to delete this employee details?
+    </h4>
+    <button
+      class="btn btn-primary btn-sm pl-4 pr-4 mr-2"
+      (click)="deleteEmployee(); d()"
+    >
+      Yes
+    </button>
+    <button class="btn btn-secondary btn-sm pl-4 pr-4 ml-2" (click)="d()">
+      No
+    </button>
+  </div>
+</ng-template>

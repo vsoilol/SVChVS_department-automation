@@ -1,0 +1,104 @@
+.picker-header {
+  display: flex;
+  height: 40px;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+    0px 0px 0px 1px rgb(104 113 130 / 16%);
+  border-radius: 6px;
+  transition: box-shadow 0.3s;
+
+  &-invalid {
+    border: 1px solid #f10606;
+  }
+
+  &:hover {
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  }
+
+  &:focus-within {
+    border: 1px solid #008ace;
+  }
+
+  &__tag {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 6px;
+    margin: 3px 3px;
+    background: #e1e3eb;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+      0px 0px 0px 1px rgb(104 113 130 / 16%);
+    border-radius: 6px;
+    transition: box-shadow 0.3s;
+
+    &:first-child {
+      margin-left: 8px;
+    }
+
+    &-wrapper {
+      display: flex;
+    }
+
+    &-text {
+      font-family: "Inter";
+      font-style: normal;
+      line-height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 120px;
+    }
+
+    &-delete-icon {
+      color: white;
+      display: flex;
+      opacity: 0.7;
+      cursor: pointer;
+      font-size: 12px;
+      margin: 2px 0 0 4px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #a1a9b8;
+    padding: 0 12px;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &--ml-12 {
+      margin-left: 12px;
+    }
+  }
+
+  &__arrow-down-btn {
+    cursor: pointer;
+    min-width: 0;
+    flex-shrink: 0;
+    padding: 0;
+
+    &.mat-icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+.gray-icon {
+  color: #868fa0;
+}

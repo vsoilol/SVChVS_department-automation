@@ -1,0 +1,44 @@
+<div class="picker" *ngIf="isReady">
+	<div class="picker__label" *ngIf="label">{{ label }}</div>
+	<app-picker-header-multi
+		*ngIf="isMultiSelect; else singleSelect"
+		[placeholder]="placeholder"
+		[selectedOptions]="selectedOptions"
+		[showErrorMessage]="showErrorMessage"
+		[required]="required"
+		(selectedOptionsChanged)="selectedOptionsChanged($event)"
+		[filterText]="filterText"
+		(filterOptionsChanged)="filterOptionsChanged($event)"
+		(suggest)="suggest($event)"
+		(suggestFromInput)="suggestFromInput($event)">
+	</app-picker-header-multi>
+
+	<ng-template #singleSelect>
+		<app-picker-header-single
+			[placeholder]="placeholder"
+			[selectedOptions]="selectedOptions"
+			[showErrorMessage]="showErrorMessage"
+			[required]="required"
+			(suggest)="suggest($event)"
+			[matTooltip]="tooltip">
+		</app-picker-header-single>
+	</ng-template>
+
+	<div id="errorMessage" class="picker__error-message" *ngIf="showErrorMessage">
+		{{ errorMessage }}
+	</div>
+
+	<div class="picker__dropdown">
+		<app-picker-dropdown
+			[style.display]="show ? 'block' : 'none'"
+			[maxHeight]="maxHeight"
+			[isMultiSelect]="isMultiSelect"
+			[filterText]="filterText"
+			[placeholder]="placeholder"
+			[required]="required"
+			[options]="options"
+			[selectedOptions]="selectedOptions"
+			(selectedOptionsChanged)="selectedOptionsChanged($event)"
+			(suggest)="suggest($event)"></app-picker-dropdown>
+	</div>
+</div>

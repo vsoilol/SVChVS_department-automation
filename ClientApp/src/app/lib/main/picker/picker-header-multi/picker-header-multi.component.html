@@ -1,0 +1,58 @@
+<div
+	[attr.class]="
+	showErrorMessage && required ? 'picker-header-invalid' : 'picker-header'
+	"
+	#pickerHeader>
+	<ng-container
+		*ngIf="
+		selectedOptions.length <(pickerHeader.offsetWidth <300 ? 2 : 3);
+		else selectedItemsCountTemplate
+		">
+		<div
+			class="picker-header__tag"
+			[style.max-width]="selectedOptions.length === 1 ? '40%' : '30%'"
+			*ngFor="let selectedOption of selectedOptions"
+			(click)="deleteSelectedOption(selectedOption)">
+			<div class="picker-header__tag-text">{{ selectedOption.name }}</div>
+			<div class="picker-header__tag-delete-icon">
+				<mat-icon class="gray-icon">close</mat-icon>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-template #selectedItemsCountTemplate>
+		<div
+			(click)="unselectAllOptions($event)"
+			class="picker-header__tag-wrapper">
+			<div class="picker-header__tag">
+				<div class="picker-header__tag-text">
+					{{ selectedOptions.length }}
+					{{ pickerHeader.offsetWidth <300 ? "" : "элемента" }}
+				</div>
+				<div class="picker-header__tag-delete-icon">
+					<mat-icon class="gray-icon">close</mat-icon>
+				</div>
+			</div>
+		</div>
+	</ng-template>
+
+	<input
+		[attr.class]="
+		selectedOptions.length> 0
+	? 'picker-header__input'
+	: 'picker-header__input picker-header__input--ml-12'
+	"
+	type="text"
+	[placeholder]="placeholder ? placeholder : ''"
+	(ngModelChange)="inputFilterTextChanged($event)"
+	[(ngModel)]="filterText"
+	(click)="clickOnInput($event)"
+	/>
+
+	<button
+		mat-button
+		(click)="clickOnButton($event)"
+		class="picker-header__arrow-down-btn">
+		<mat-icon class="gray-icon">keyboard_arrow_down</mat-icon>
+	</button>
+</div>

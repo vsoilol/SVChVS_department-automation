@@ -1,0 +1,115 @@
+.dropdown {
+  &__search {
+    display: flex;
+    background: white;
+    padding-left: 7px;
+    align-items: center;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+      0px 0px 0px 1px rgb(104 113 130 / 16%);
+    border-radius: 6px;
+    transition: box-shadow 0.3s;
+
+    &-icon {
+      color: #acafbf;
+    }
+
+    &-input {
+      font-family: "Inter";
+      font-style: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #a1a9b8;
+      font-weight: 400;
+      border: none;
+      outline: none;
+      width: 100%;
+      margin: 4px;
+    }
+  }
+
+  &__body {
+    overflow: overlay;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+      0px 0px 0px 1px rgb(104 113 130 / 16%);
+    border-radius: 6px;
+    transition: box-shadow 0.3s;
+    max-height: 300px;
+
+    &-no-result {
+      background-color: #fff;
+      padding: 6px 12px;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      cursor: pointer;
+      padding: 6px 14px 6px 12px;
+      min-height: 34px;
+
+      &:hover {
+        background-color: #ecfbff;
+      }
+
+      &-text {
+        font-family: "Inter";
+        font-style: normal;
+        font-size: 14px;
+        line-height: 20px;
+        width: 100%;
+        height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      &-icon {
+        display: flex;
+        color: #008ace;
+        margin: 0 0 0 15px;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    color: #303240;
+    box-shadow: 0px 1px 2px rgb(0 0 0 / 6%),
+      0px 0px 0px 1px rgb(104 113 130 / 16%);
+    border-radius: 6px;
+    transition: box-shadow 0.3s;
+    // border: 1px solid #d4d4d4;
+    font-family: "Inter";
+    font-style: normal;
+    background-color: #ffff;
+
+    &-items-count {
+      padding: 6px 12px;
+      margin: auto 0;
+    }
+
+    &-select-all-button {
+      cursor: pointer;
+      color: #008ace;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px 10px transparent;
+  border: solid 3px transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  box-shadow: inset 0 0 10px 10px #ced0db;
+  border: solid 3px transparent;
+}

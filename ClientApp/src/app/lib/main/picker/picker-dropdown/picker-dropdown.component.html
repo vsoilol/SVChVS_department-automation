@@ -1,0 +1,104 @@
+<div class="dropdown">
+  <div class="dropdown__search" *ngIf="!isMultiSelect">
+    <svg
+      class="dropdown__search-icon"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5.5 10C3.01472 10 1 7.98528 1 5.5C1 3.01472 3.01472 1 5.5 1C7.98528 1 10 3.01472 10 5.5C10 6.56251 9.63176 7.53901 9.01595 8.30884L10.7071 10L10 10.7071L8.30884 9.01595C7.53901 9.63176 6.56251 10 5.5 10ZM5.5 9C7.433 9 9 7.433 9 5.5C9 3.567 7.433 2 5.5 2C3.567 2 2 3.567 2 5.5C2 7.433 3.567 9 5.5 9Z"
+        fill="#868FA0"
+      />
+    </svg>
+    <input
+      class="dropdown__search-input"
+      type="text"
+      placeholder="Поиск..."
+      (ngModelChange)="filterOptions($event)"
+      [(ngModel)]="filterText"
+    />
+  </div>
+
+  <div
+    class="dropdown__body"
+    [style.maxHeight]="maxHeight ? maxHeight : '300px'"
+  >
+    <div
+      *ngIf="filteredOptions.length === 0; else filteredItemsTemplate"
+      class="dropdown__body-no-result"
+    >
+      No results
+    </div>
+
+    <ng-template #filteredItemsTemplate>
+      <div
+        *ngFor="let filteredOption of filteredOptions"
+        (click)="selectOption(filteredOption, $event)"
+        class="dropdown__body-item"
+        [ngStyle]="
+          !isMultiSelect &&
+          !required &&
+          filteredOptions.indexOf(filteredOption) === 0 &&
+          filteredOption.name === placeholder
+            ? { color: '#6C6F80' }
+            : { color: 'black' }
+        "
+      >
+        <div
+          class="dropdown__body-item-text"
+          *ngIf="
+            !isMultiSelect &&
+              !required &&
+              filteredOptions.indexOf(filteredOption) === 0 &&
+              filteredOption.name === placeholder;
+            else placeholderSelectTemplate
+          "
+        >
+          -- {{ filteredOption.name }} --
+        </div>
+
+        <ng-template #placeholderSelectTemplate>
+          <div class="dropdown__body-item-text">
+            {{ filteredOption.name }}
+          </div>
+        </ng-template>
+
+        <div
+          *ngIf="isSelected(filteredOption)"
+          class="dropdown__body-item-icon"
+        >
+          <mat-icon [inline]="true">check</mat-icon>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div
+    class="dropdown__footer"
+    *ngIf="filteredOptions.length !== 0 && isMultiSelect"
+  >
+    <div class="dropdown__footer-items-count">
+      {{ filteredOptions.length }} элементов
+    </div>
+
+    <div class="dropdown__footer-select-all-button">
+      <a
+        type="button"
+        *ngIf="isUnselectBtnShowed(); else selectAllButtonTemplate"
+        (click)="unselectAllOptions($event)"
+      >
+        очистить
+      </a>
+      <ng-template #selectAllButtonTemplate>
+        <div (click)="selectAll()">
+          <a type="button"> выбрать все </a>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

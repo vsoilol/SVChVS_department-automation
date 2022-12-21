@@ -1,0 +1,32 @@
+@import "variables";
+:host {
+  display: inline-flex;
+  width: 100%;
+}
+
+.picker {
+  display: inline-block;
+  //max-width: 300px;
+  width: 100%;
+  //width: $la;
+  position: relative;
+
+  &__label {
+    height: 24px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__error-message {
+    color: #f10606;
+  }
+
+  &__dropdown {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+  }
+}

@@ -1,0 +1,23 @@
+<div
+	#pickerHeader
+	[attr.class]="
+	showErrorMessage && required ? 'picker-header invalid' : 'picker-header'
+	"
+	(click)="clickOnInput($event)">
+	<input
+		class="picker-header__input"
+		[ngStyle]="
+		!required && selectedOptions[0]
+		? { color: 'black' }
+		: { color: '#6C6F80' }
+		"
+		type="button"
+		[placeholder]="placeholder ? placeholder : ''"
+		[value]="selectedOptions[0]?.name ? selectedOptions[0]?.name : placeholder"
+		/>
+
+	<button
+		class="picker-header__arrow-down-btn">
+		<mat-icon class="gray-icon">keyboard_arrow_down</mat-icon>
+	</button>
+</div>
