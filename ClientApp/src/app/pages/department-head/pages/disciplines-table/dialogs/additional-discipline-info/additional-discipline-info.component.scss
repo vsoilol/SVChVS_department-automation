@@ -1,0 +1,35 @@
+.mat-dialog-content {
+  //display: flex;
+}
+
+.content-item-title {
+  font-weight: 500;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.content-item-content {
+  &__container {
+    margin: 0 0 10px 0;
+    min-height: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.spinner__item {
+  position: relative;
+  height: 40px;
+}
+
+.teachers-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spinner__wrapper {
+  height: 106px;
+}

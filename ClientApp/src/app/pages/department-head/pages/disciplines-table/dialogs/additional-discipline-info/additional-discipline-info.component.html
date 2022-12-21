@@ -1,0 +1,112 @@
+
+
+<div mat-dialog-content >
+  <div class="content">
+    <div class="content__item">
+      <div class="content-item-title">
+        <span>Название</span>
+      </div>
+      <div class="content-item-content">
+        <div class="content-item-content__container">
+          <span>{{ discipline.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content__item">
+      <div class="content-item-title">
+        <span
+          >Специальность на которой будет преподаваться данная дисциплина</span
+        >
+      </div>
+      <div class="content-item-content">
+        <div class="content-item-content__container">
+          <span>{{ discipline.specialtyName }}</span>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content__item">
+      <div class="content-item-title">
+        <span>Год подготовки</span>
+      </div>
+      <div class="content-item-content">
+        <div class="content-item-content__container">
+          <span>{{ discipline.studyStartingYear }}</span>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+
+    <div class="spinner__wrapper" *ngIf="spinnerService.isSpinnerWork | async">
+      <app-spinner [name]="spinnerName"></app-spinner>
+    </div>
+
+    <div class="content__item" *ngIf="!(spinnerService.isSpinnerWork | async)">
+      <div class="content-item-title teachers-title">
+        <div class="content-item-title__text">
+          <span>Список преподователей</span>
+        </div>
+        <div class="content-item-title__button">
+          <button
+            mat-raised-button
+            class="mr-15"
+            *ngIf="!(isEdit | async)"
+            (click)="editTeachersDiscipline()"
+          >
+            Редактировать
+          </button>
+          <button
+            mat-raised-button
+            class="mr-15"
+            *ngIf="isEdit | async"
+            (click)="updateTeachersDiscipline()"
+          >
+            Сохранить
+          </button>
+        </div>
+      </div>
+      <div class="content-item-content">
+        <div class="content-item-content__container">
+          <ng-container *ngIf="!(isEdit | async)">
+            <div
+              class="teacher-info"
+              *ngFor="let teacher of discipline.teachers"
+            >
+              <span>{{ teacher.fullName }}</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isEdit | async">
+            <div class="teachers-select" [formGroup]="form">
+              <app-picker
+                formControlName="teachers"
+                [options]="teachers"
+                [placeholder]="'Преподаватели'"
+                [isMultiSelect]="true"
+                [width]="'520px'"
+                [maxHeight]="'170px'"
+                [selectedOptions]="selectedTeachers"
+              >
+              </app-picker>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+  </div>
+</div>
+
+<div mat-dialog-actions *ngIf="!loaderService.isShow">
+  <button mat-button (click)="onNoClick()">Ок</button>
+  <!-- <button mat-button [mat-dialog-close]="chooseBlock" cdkFocusInitial>
+    Ok
+  </button> -->
+</div>
