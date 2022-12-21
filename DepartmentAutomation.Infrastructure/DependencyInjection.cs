@@ -17,17 +17,12 @@ namespace DepartmentAutomation.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
             IConfiguration configuration)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var isSqlServer = environment == "Development.SqlServer";
+            var sqlConnectionString = configuration.GetConnectionString("DefaultConnection");
 
-            if (isSqlServer)
-            {
-                services.SetupSqlServer(configuration);
-            }
-            else
-            {
-                services.SetupPostgreSql(configuration);
-            }
+            services.AddDbContext<DepartmentAutomationContext>(options =>
+                options.UseNpgsql(
+                    sqlConnectionString,
+                    b => b.MigrationsAssembly(typeof(DepartmentAutomationContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider =>
                 provider.GetRequiredService<DepartmentAutomationContext>());
