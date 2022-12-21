@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "DepartmentAutomation"
+    },
+    "indentation": {
+      "useTabs": false
+    },
+    "namingRules": {
+      "allowCommonHungarianPrefixes": true,
+      "allowedHungarianPrefixes": [
+        "db",
+        "do",
+        "id",
+        "in",
+        "is",
+        "my",
+        "no",
+        "on",
+        "to",
+        "ui"
+      ]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+[*.cs]
+
+# SX1309S: Static field names should begin with underscore
+dotnet_diagnostic.SX1309S.severity = none
+
+# SX1309: Field names should begin with underscore
+dotnet_diagnostic.SX1309.severity = none
