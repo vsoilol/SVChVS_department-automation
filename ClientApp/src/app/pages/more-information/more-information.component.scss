@@ -1,0 +1,102 @@
+@use "sass:math";
+@import "fonts/icons";
+@import "variables";
+@import "base";
+
+:host {
+  color: #000000;
+}
+
+.more-information-page{
+  margin-top: rem(40);
+
+  &__container{
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+  }
+
+  &__text-block{
+    display: flex;
+    flex-direction: column;
+    gap: rem(12);
+  }
+
+  &__button{
+    align-self: center;
+    margin-bottom: rem(20);
+    display: inline-block;
+    font-size: rem(16);
+    padding: rem(10) rem(20);
+    text-align: center;
+    background-color: $mainDarkColor;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease 0s;
+
+    @media (max-width: rem(360)){
+      align-self: auto;
+    }
+
+    &:hover {
+      color: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    }
+  }
+}
+
+.text-block{
+  &__title{
+    text-align: center;
+    font-weight: 700;
+    font-size: rem(25);
+  }
+
+  &__body{
+    text-align: justify;
+    font-size: rem(17);
+    line-height: math.div(20, 16);
+  }
+
+  &__text{
+    @media (max-width: rem(500)){
+      margin: rem(15) 0;
+
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__image{
+    margin: rem(15) 0;
+
+    @media (max-width: rem(500)){
+      display: none;
+    }
+
+    img{
+      width: 100%;
+    }
+  }
+
+  &__image-ibg{
+
+
+    &_first{
+      padding-bottom: percent(390, 1360);
+    }
+
+    &_second{
+      padding-bottom: percent(523, 1770);
+    }
+
+    &_third{
+      padding-bottom: percent(340, 1770);
+    }
+
+    img{
+      object-fit: contain;
+    }
+  }
+}
