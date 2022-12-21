@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "gulp fonts && ng serve",
+    "build": "gulp fonts && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prestart": "node aspnetcore-https"
+    "prestart": "node aspnetcore-https",
+    "fonts": "gulp fonts --rewrite"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +33,11 @@
     "@ngx-translate/core": "^12.0.0",
     "@ngx-translate/http-loader": "^4.0.0",
     "bootstrap": "^4.5.0",
+    "del": "^4.1.1",
     "file-saver": "^2.0.5",
+    "gulp": "^4.0.2",
+    "gulp-fonter-fix": "^0.0.1",
+    "gulp-ttf2woff2": "^4.0.1",
     "ngx-cookie-service": "^12.0.3",
     "ngx-online-status": "^1.0.1",
     "ngx-scrollbar": "^8.0.0",
