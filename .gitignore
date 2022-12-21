@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 .idea
 ClientApp/.vscode
+ClientApp/package-lock.json

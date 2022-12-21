@@ -85,7 +85,7 @@ export class AuthenticationService {
       )
       .pipe(
         map((authenticationResult) => {
-          this.router.navigate(['/authentication/login']);
+          this.router.navigate(['']);
           this.stopRefreshTokenTimer();
           this.userSubject.next(null);
           return authenticationResult;
@@ -191,7 +191,7 @@ export class AuthenticationService {
           this.startRefreshTokenTimer();
           return authenticationResult;
         }),
-        catchError(ex => of("error", ex))
+        catchError((ex) => of('error', ex))
       );
   }
 
