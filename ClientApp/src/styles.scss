@@ -1,7 +1,130 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@use "sass:math";
+
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900&display=swap");
+
+@import "libs/main-spinner.scss";
+
+@import "base/null";
+@import "base/mixins";
+
+@import "fonts/fonts";
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px 10px transparent;
+  border: solid 3px transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  box-shadow: inset 0 0 10px 10px #ced0db;
+  border: solid 3px transparent;
+}
+
+body {
+  font-weight: 400;
+
+  // Скролл заблокирован
+  .lock & {
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  // Сайт загружен
+  .loaded & {
+  }
+}
+
+.canvas {
+  position: relative;
+  &::after {
+    content: "";
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  // Прижимаем footer
+  > main {
+    flex: 1 1 auto;
+  }
+
+  // Фикс для слайдеров
+  > * {
+    min-width: 0;
+  }
+}
+
+// Ограничивающий контейнер ======================================================================================================================================================================================================================
+
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+  // Отзывчивая
+  [class*="__container"] {
+    @if ($maxWidthContainer>0) {
+      max-width: rem($maxWidthContainer);
+      box-sizing: content-box;
+      margin: 0 auto;
+    }
+
+    @if ($containerPadding>0) {
+      padding: 0 rem(math.div($containerPadding, 2));
+    }
+  }
+} @else {
+  // По брейк-поинтам
+  [class*="__container"] {
+    margin: 0 auto;
+
+    @if ($maxWidthContainer>0) {
+      max-width: rem($maxWidthContainer);
+      box-sizing: content-box;
+    } @else {
+      @if ($containerPadding>0) {
+        padding: 0 rem(math.div($containerPadding, 2));
+      }
+    }
+
+    @media (max-width: $pc) {
+      max-width: rem(970);
+    }
+
+    @media (max-width: $tablet) {
+      max-width: rem(750);
+    }
+
+    @media (max-width: $mobile) {
+      max-width: none;
+
+      @if ($containerPadding>0 and $maxWidthContainer>0) {
+        padding: 0 rem(math.div($containerPadding, 2));
+      }
+    }
+  }
+}
 
 .ck-content {
   ul,
@@ -28,215 +151,4 @@ pre {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 10px;
   font-size: 15px;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  min-height: 100%;
-  min-width: 400px;
-  background: #fff;
-}
-
-html,
-body {
-  overflow: hidden;
-}
-
-.login-wrapper {
-  height: 100vh;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-.box {
-  position: relative;
-  top: 0;
-  opacity: 1;
-  float: left;
-  padding: 60px 50px 40px 50px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  z-index: 5;
-  max-width: 330px;
-  margin: -5% 0 0 0;
-}
-
-.box.back {
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  top: -20px;
-  opacity: 0.8;
-  z-index: -1;
-}
-
-.box:before {
-  content: "";
-  width: 100%;
-  height: 30px;
-  border-radius: 10px;
-  position: absolute;
-  top: -10px;
-  background: rgba(255, 255, 255, 0.6);
-  left: 0;
-  transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  z-index: -1;
-}
-
-.login-wrapper .example-form {
-  min-width: 100%;
-  max-width: 300px;
-  width: 100%;
-}
-
-.login-wrapper .example-full-width,
-.login-wrapper .btn-block {
-  width: 100%;
-}
-
-.login-wrapper mat-card-header {
-  text-align: center;
-  width: 100%;
-  display: block;
-  font-weight: 700;
-}
-
-.login-wrapper mat-card-header mat-card-title {
-  font-size: 30px;
-  margin: 0;
-}
-
-.login-wrapper .mat-card {
-  padding: 40px 70px 50px;
-}
-
-.login-wrapper .mat-stroked-button {
-  border: 1px solid currentColor;
-  line-height: 54px;
-  background: #fff7fa;
-}
-
-.login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 0.8375em 0;
-}
-
-button {
-  background: none repeat scroll 0 0 transparent;
-  border: medium none;
-  border-spacing: 0;
-  color: #26589f;
-  font-family: "PT Sans Narrow", sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.42rem;
-  list-style: none outside none;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  text-decoration: none;
-  text-indent: 0;
-}
-
-input {
-  font-family: inherit;
-  border: none;
-}
-
-input::-ms-clear {
-  display: none;
-}
-
-input {
-  -webkit-appearance: none;
-  box-shadow: none !important;
-}
-:-webkit-autofill {
-  color: #fff !important;
-}
-
-input:focus {
-  outline: none;
-  border: none;
-}
-
-$offset: 187;
-$duration: 1.4s;
-
-.spinner {
-  animation: rotator $duration linear infinite;
-}
-
-@keyframes rotator {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(270deg);
-  }
-}
-
-.loader-spinner {
-  position: absolute;
-  z-index: 99;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-}
-
-.path {
-  stroke-dasharray: $offset;
-  stroke-dashoffset: 0;
-  transform-origin: center;
-  animation: dash $duration ease-in-out infinite,
-    colors ($duration * 4) ease-in-out infinite;
-}
-
-@keyframes colors {
-  0% {
-    stroke: #000;
-  }
-  25% {
-    stroke: #000;
-  }
-  50% {
-    stroke: #000;
-  }
-  75% {
-    stroke: #000;
-  }
-  100% {
-    stroke: #000;
-  }
-}
-
-@keyframes dash {
-  0% {
-    stroke-dashoffset: $offset;
-  }
-  50% {
-    stroke-dashoffset: $offset/4;
-    transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: $offset;
-    transform: rotate(450deg);
-  }
-}
-
-.flex {
-  display: flex;
 }
